@@ -41,6 +41,13 @@
     "eol-last": [
       "error",
       "always"
+    ],
+    "padded-blocks": [
+      "error",
+      {
+        "blocks": "never",
+        "classes": "never"
+      }
     ]
   }
 }
