@@ -1,6 +1,14 @@
 import 'babel-polyfill';
 import $ from 'jquery';
 
-import helloWorld from './hello-world';
+import mount from './mount';
+import Flight from './flight';
 
-$(`<h1>${helloWorld}</h1>`).appendTo('body');
+mount(
+	{
+		initialModel: Flight.init([], '', '', ''),
+		update      : Flight.update,
+		view        : Flight.view
+	},
+	$('#app')
+);
