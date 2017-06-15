@@ -1,0 +1,4 @@
+/dist/app.bundle.js
+/node_modules
+*.xml
+*.iml
