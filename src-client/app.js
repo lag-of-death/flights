@@ -6,7 +6,15 @@ import Flight from './flight';
 
 mount(
 	{
-		initialModel: Flight.init([], '', '', ''),
+		initialModel: Flight.init(
+			[],
+			'',
+			'',
+			new Date().toISOString().split('T')[0],
+			[],
+			[],
+			false
+		),
 		update      : Flight.update,
 		view        : Flight.view
 	},
