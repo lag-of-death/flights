@@ -15,8 +15,8 @@ const Flight = {
 		innerAction: action
 	}),
 
-	init: (flightBoard, from, to, date, airportsFrom, airportsTo, isButtonDisabled) =>
-		({flightBoard, flightSearch: {from, to, date, airportsFrom, airportsTo, isButtonDisabled}}),
+	init: (flightBoard, from, to, date, airportsFrom, airportsTo, isButtonDisabled, searchLabel) =>
+		({flightBoard, flightSearch: {from, to, date, airportsFrom, airportsTo, isButtonDisabled, searchLabel}}),
 
 	update: (model, action) => {
 		const actions = {

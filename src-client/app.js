@@ -13,7 +13,8 @@ mount(
 			new Date().toISOString().split('T')[0],
 			[],
 			[],
-			false
+			false,
+			'Search'
 		),
 		update      : Flight.update,
 		view        : Flight.view

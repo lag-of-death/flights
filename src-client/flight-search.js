@@ -42,13 +42,13 @@ const FlightSearch = {
 						payload: evt.currentTarget.value
 					})()),
 
-				$('<input type="submit"/>')
-					.attr('disabled',
-						model.flightsBeingSearched
-						|| !model.airportFrom
-						|| !model.airportTo
-						|| !model.date
-					)
+					$(`<input type="submit" value="${model.searchLabel}"/>`)
+						.attr('disabled',
+							model.flightsBeingSearched
+							|| !model.airportFrom
+							|| !model.airportTo
+							|| !model.date
+						)
 			).on('submit', (evt) => {
 				evt.preventDefault();
 
@@ -79,8 +79,8 @@ function tryToUpdate(model, action = {}) {
 			[FlightSearch.Date]        : {...model, date: action.payload}
 		}[action.type]
 		: {
-			[FlightSearch.EnableSearch] : {...model, flightsBeingSearched: false},
-			[FlightSearch.DisableSearch]: {...model, flightsBeingSearched: true}
+			[FlightSearch.EnableSearch] : {...model, flightsBeingSearched: false, searchLabel: 'Search'},
+			[FlightSearch.DisableSearch]: {...model, flightsBeingSearched: true, searchLabel: 'Searching...'}
 		}[action.type];
 }
 
