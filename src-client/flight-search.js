@@ -3,7 +3,9 @@ import R from 'ramda';
 
 const getFlights = (date, from, to) => {
 	return new Promise(resolve =>
-		$.get(`http://localhost:3000/search?date=${date}&from=${from}&to=${to}`).then(resolve));
+		$.get(`http://localhost:3000/search?date=${date}&from=${from}&to=${to}`)
+			.catch(err => alert(err.responseText))
+			.then(resolve));
 };
 
 const FlightSearch = {

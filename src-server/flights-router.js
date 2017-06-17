@@ -5,6 +5,10 @@ const R = require('ramda');
 
 const location = 'http://node.locomote.com/code-task';
 
+const AIRLINES_ERR_CODE = 1;
+const AIRPORTS_ERR_CODE = 2;
+const SEARCH_ERR_CODE   = 3;
+
 module.exports = router
 	.get('/airlines', getAirlinesHandler)
 	.get('/airports', getAirportsHandler)
@@ -39,27 +43,27 @@ function searchHandler({query}, res) {
 			)
 		)
 		.then(data => res.send(data))
-		.catch(err => errHandler(res.send.bind(res), err));
+		.catch(err => errHandler(res, err, SEARCH_ERR_CODE));
 }
 
 function getAirlinesHandler(req, res) {
 	return rp
 		.get(`${location}/airlines`)
 		.then(data => res.send(data))
-		.catch(err => errHandler(res.send.bind(res), err));
+		.catch(err => errHandler(res, err, AIRLINES_ERR_CODE));
 }
 
 function getAirportsHandler({query}, res) {
 	return rp
 		.get(`${location}/airports?q=${query.q}`)
 		.then(data => res.send(data))
-		.catch(err => errHandler(res.send.bind(res), err));
+		.catch(err => errHandler(res, err, AIRPORTS_ERR_CODE));
 }
 
-function errHandler(send, err) {
-	console.error(err);
+function errHandler(res, err, errorCode) {
+	console.error(`${new Date()} : ${errorCode}\n${err}`);
 
-	send('ERR');
+	res.status(500).send(`Error:${errorCode}. Please contact our support team.`);
 }
 
 function getAdjustedDate(chosenFlightDate, differenceInDays) {
