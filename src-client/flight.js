@@ -39,7 +39,7 @@ const Flight = {
 	},
 
 	view: (dispatch, model) =>
-		$('<div/>').append(
+		$('<div class="flights-container"/>').append(
 			FlightSearch.view(compose(dispatch, Flight.FlightSearch), model.flightSearch),
 			FlightBoard.view(compose(dispatch, Flight.FlightBoard), model.flightBoard)
 		)

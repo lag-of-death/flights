@@ -20,35 +20,42 @@ const FlightSearch = {
 	update: (model, action) => tryToUpdate(model, action) || model,
 
 	view: (dispatch, model) =>
-		$('<form/>')
+		$('<form class="form"/>')
 			.append(
-				$('<label for="from">From</label>'),
-				locationInput(dispatch, R.pathOr('', ['from'], model), 'from', 'From'),
-				locationsList(model.airportsFrom, dispatch, 'From'),
+				$('<div class="form__row"/>').append(
+					$('<span class="airport airport--relative"/>').append(
+						locationInput(dispatch, R.pathOr('', ['from'], model), 'from', 'From'),
+						locationsList(model.airportsFrom, dispatch, 'From')
+					),
 
-				$('<label for="to">To</label>'),
-				locationInput(dispatch, R.pathOr('', ['to'], model), 'to', 'To'),
-				locationsList(model.airportsTo, dispatch, 'To'),
+					$('<span class="airport airport--relative"/>').append(
+						locationInput(dispatch, R.pathOr('', ['to'], model), 'to', 'To'),
+						locationsList(model.airportsTo, dispatch, 'To')
+					)
+				),
 
-				$('<label for="date">Date</label>'),
-				$(`<input 
+				$('<div class="form__row"/>').append(
+					$(`<input 
 					id="date" 
+					required
+                    class="date airport input"
 					min="${new Date().toISOString().split('T')[0]}" 
 					type="date" 
 					value="${R.pathOr('', ['date'], model)}"/>`
-				).on('change', (evt) =>
-					dispatch({
-						type   : FlightSearch.Date,
-						payload: evt.currentTarget.value
-					})()),
+					).on('change', (evt) =>
+						dispatch({
+							type   : FlightSearch.Date,
+							payload: evt.currentTarget.value
+						})()),
 
-					$(`<input type="submit" value="${model.searchLabel}"/>`)
+					$(`<input type="submit" data-state="${model.searchLabel}" class="search airport input" value="${model.searchLabel}"/>`)
 						.attr('disabled',
 							model.flightsBeingSearched
 							|| !model.airportFrom
 							|| !model.airportTo
 							|| !model.date
 						)
+				)
 			).on('submit', (evt) => {
 				evt.preventDefault();
 
@@ -85,9 +92,9 @@ function tryToUpdate(model, action = {}) {
 }
 
 function locationsList(model, dispatch, dir) {
-	return $('<ul>').append(
+	return $('<ul class="airports">').append(
 		...model
-			.map(airport => $('<li>')
+			.map(airport => $('<li class="airports__airport">')
 				.append(`${airport.airportCode} - ${airport.airportName}`)
 				.on('click', () => {
 					dispatch({
@@ -110,7 +117,7 @@ function locationsList(model, dispatch, dir) {
 }
 
 function locationInput(dispatch, value, inputName, dir) {
-	return $(`<input id="${inputName}" name="${inputName}" value="${value}"/>`)
+	return $(`<input class="input airport--relative__airport-name" required type="text" placeholder="${inputName}" id="${inputName}" name="${inputName}" value="${value}"/>`)
 		.on('input', function (evt) {
 			const value = evt.currentTarget.value;
 

@@ -18,15 +18,15 @@ const FlightBoard = {
 			.reduce((a, b) => Math.max(a, b), 0);
 
 		const trs = R.range(0, numOfRows)
-			.map((val, idx) => $('<tr/>').append(
+			.map((val, idx) => $('<tr class="table__row"/>').append(
 				...model.map(flight => {
-					return $('<td/>').append(flight.prices[idx] || '-');
+					return $('<td class="column"/>').append(flight.prices[idx] || '-');
 				})
 			));
 
-		const ths = model.map(day => $('<th/>').append(day.date));
+		const ths = model.map(day => $('<th class="column-header"/>').append(day.date));
 
-		return $('<table/>').append(
+		return $('<table class="table"/>').append(
 			$('<tr>').append(...ths),
 			trs
 		);
