@@ -123,16 +123,21 @@ function locationInput(dispatch, value, inputName, dir) {
 				}
 			})();
 
-			if (value.length >= 2) {
+			if (value.trim().length >= 2) {
 				$.get(`http://localhost:3000/airports?q=${value}`)
-					.then(data => {
-						dispatch({
-							type   : FlightSearch[`Airports${dir}`],
-							payload: {
-								[`airports${dir}`]: JSON.parse(data)
-							}
-						})();
-					});
+					.catch(err => alert(err.responseText))
+					.then(airports => showAirports(dispatch, dir, JSON.parse(airports)));
+			} else {
+				showAirports(dispatch, dir, []);
 			}
 		});
+}
+
+function showAirports(dispatch, dir, data) {
+	dispatch({
+		type   : FlightSearch[`Airports${dir}`],
+		payload: {
+			[`airports${dir}`]: data
+		}
+	})();
 }
