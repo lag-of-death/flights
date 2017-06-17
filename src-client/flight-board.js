@@ -14,13 +14,23 @@ const FlightBoard = {
 
 	view: (dispatch, model) => {
 		const numOfRows = model
-			.map(flight => flight.prices.length)
+			.map(day => day.flights.length)
 			.reduce((a, b) => Math.max(a, b), 0);
 
 		const trs = R.range(0, numOfRows)
 			.map((val, idx) => $('<tr class="table__row"/>').append(
-				...model.map(flight => {
-					return $('<td class="column"/>').append(flight.prices[idx] || '-');
+				...model.map(day => {
+					return $('<td class="column"/>')
+						.append(
+							$('<div>').append(day.flights[idx].name),
+							$('<div class="price">').append(day.flights[idx].price),
+							$('<div>').append(`
+								Departure: ${new Date(day.flights[idx].start).toISOString().split('T')[0]}
+							`),
+							$('<div>').append(`
+								Arrival: ${new Date(day.flights[idx].finish).toISOString().split('T')[0]}
+							`)
+						);
 				})
 			));
 

@@ -33,11 +33,11 @@ function searchHandler({query}, res) {
 				flightsDates.map(flightDate => {
 					return Promise
 						.all(airlines.map(airline =>
-							getAirlineFlightsPricesForDate(`${airline.code}?date=${flightDate}&from=${from}&to=${to}`)
+							getAirlineFlightsForDate(`${airline.code}?date=${flightDate}&from=${from}&to=${to}`)
 						))
-						.then(allPricesForFlightDate => ({
-							date  : flightDate,
-							prices: R.flatten(allPricesForFlightDate).sort((a, b) => a - b)
+						.then(allFlights => ({
+							date   : flightDate,
+							flights: R.flatten(allFlights).sort((a, b) => a.price - b.price)
 						}));
 				})
 			)
@@ -75,9 +75,16 @@ function getAdjustedDate(chosenFlightDate, differenceInDays) {
 		.split('T')[0];
 }
 
-function getAirlineFlightsPricesForDate(path) {
+function getAirlineFlightsForDate(path) {
 	return rp(`${location}/flight_search/${path}`)
 		.then(data => JSON.parse(data))
 		.then(airlineFlightsForDate =>
-			airlineFlightsForDate.map(singleFlight => singleFlight.price));
+			airlineFlightsForDate.map(singleFlight => {
+				return {
+					start : singleFlight.start.dateTime,
+					finish: singleFlight.finish.dateTime,
+					name  : singleFlight.airline.name,
+					price : singleFlight.price
+				};
+			}));
 }

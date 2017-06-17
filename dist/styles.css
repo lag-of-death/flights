@@ -42,7 +42,8 @@ html, body {
 }
 
 .table {
-    width: 100%;
+    margin: 2%;
+    width: 96%;
 }
 
 .table__row:nth-child(even) {
@@ -71,14 +72,15 @@ html, body {
     width: 100%;
     padding: 0;
     list-style: none;
-    background: #dfdce3;
+    background: #f7b733;
     position: absolute;
     margin: 0;
 }
 
 .airports__airport:hover {
     cursor: pointer;
-    background: #f7b733;
+    color: white;
+    background: #000;
 }
 
 .search[disabled] {
@@ -90,6 +92,13 @@ html, body {
     cursor: progress;
 }
 
+.column-header {
+    color: white;
+    background: black;
+    font-size: 200%;
+    letter-spacing: 12px;
+}
+
 .column-header, .column {
     font-size: 150%;
     padding: 15px;
@@ -98,4 +107,9 @@ html, body {
 
 .column:hover {
     background-color: #fc4a1a;
+}
+
+.price {
+    font-size: 180%;
+    font-weight: bold;
 }
