@@ -61,6 +61,13 @@ const FlightSearch = {
 			).on('submit', (evt) => {
 				evt.preventDefault();
 
+				dispatch({
+					msgForParent: {
+						type   : 'setFlightsData',
+						payload: []
+					}
+				})();
+
 				dispatch({type: FlightSearch.DisableSearch})();
 
 				getFlights(model.date, model.airportFrom, model.airportTo).then(flights =>
