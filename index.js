@@ -1,14 +1,9 @@
-require('dotenv').config();
-
-const path        = require('path');
 const express     = require('express');
 const favicon     = require('serve-favicon');
 const compression = require('compression');
 
-const flightsRouter = require('./src-server/flights-router');
-
-const {PORT}     = process.env;
-const pathToDist = path.join(__dirname, 'dist');
+const {PORT, pathToDist} = require('./config');
+const flightsRouter      = require('./src-server/flights-router/');
 
 express()
 	.use(compression())

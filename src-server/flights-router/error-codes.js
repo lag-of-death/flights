@@ -1,0 +1,5 @@
+module.exports = {
+	AIRLINES_ERR_CODE: 1,
+	AIRPORTS_ERR_CODE: 2,
+	SEARCH_ERR_CODE  : 3
+};
