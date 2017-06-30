@@ -1,13 +1,11 @@
-const express     = require('express');
-const favicon     = require('serve-favicon');
-const compression = require('compression');
+const semver       = require('semver');
+const runApp       = require('./src-server/');
+const {minVersion} = require('./config');
 
-const {PORT, pathToDist} = require('./config');
-const flightsRouter      = require('./src-server/flights-router/');
+if (semver.satisfies(process.versions.node, minVersion)) {
+	runApp();
+} else {
+	console.error('Please use following version of Node:', minVersion);
 
-express()
-	.use(compression())
-	.use(favicon(`${pathToDist}/favicon.ico`))
-	.use(flightsRouter)
-	.use(express.static(pathToDist))
-	.listen(PORT, () => console.info(`Listening on port ${PORT}.`));
+	process.exit();
+}

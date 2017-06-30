@@ -30,6 +30,7 @@
     "ramda": "^0.24.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
+    "semver": "https://registry.npmjs.org/semver/-/semver-5.3.0.tgz",
     "serve-favicon": "^2.4.3"
   }
 }
