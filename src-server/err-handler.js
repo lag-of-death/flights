@@ -2,5 +2,9 @@
 module.exports = ({errorCode, err}, req, res, next) => {
 	console.error(`${new Date()} : ${errorCode}\n${err}`);
 
-	res.status(500).send(`Error:${errorCode}. Please contact our support team.`);
+	res.status(500).send({
+		error: {
+			code: errorCode
+		}
+	});
 };

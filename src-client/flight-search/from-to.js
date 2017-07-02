@@ -77,7 +77,8 @@ function onInputHandler(dispatch, dir, inputName) {
 function showAirportsList(value, dispatch, dir) {
 	if (value.trim().length >= 2) {
 		$.get(`http://localhost:3000/airports?q=${value}`)
-			.catch(err => alert(err.responseText))
+			.catch(({responseJSON}) =>
+				alert(`Error: ${responseJSON.error.code}. Please contact our support team.`))
 			.then(airports => showAirports(dispatch, dir, JSON.parse(airports)));
 	} else {
 		showAirports(dispatch, dir, []);
